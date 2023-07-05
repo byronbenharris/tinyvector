@@ -17,11 +17,15 @@ pub fn handler() -> ApiRouter {
 	ApiRouter::new().nest(
 		"/collections",
 		ApiRouter::new()
-			.api_route("/:collection_name", put(create_collection))
-			.api_route("/:collection_name", post(query_collection))
-			.api_route("/:collection_name", get(get_collection_info))
-			.api_route("/:collection_name", delete(delete_collection))
-			.api_route("/:collection_name/insert", post(insert_into_collection)),
+			.api_route("/", post(create_collection))
+			// todo - add list collections route
+			// .api_route("/", get(list_collections))
+			.api_route("/", delete(delete_collection))
+			.api_route("/:collection_name", get(query_collection))
+			.api_route("/:collection_name", post(insert_into_collection)),
+			// todo - add delete from collection route
+			// .api_route("/:collection_name", delete(delete_from_collection))
+			.api_route("/:collection_name/info", get(get_collection_info))
 	)
 }
 
