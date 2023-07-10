@@ -171,6 +171,10 @@ impl Db {
 		self.collections.get(name)
 	}
 
+	pub fn list_collections(&self) -> Vec<&String> {
+		self.collections.keys().collect()
+	}
+
 	fn load_from_store() -> anyhow::Result<Self> {
 		if !STORE_PATH.exists() {
 			tracing::debug!("Creating database store");

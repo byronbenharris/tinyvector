@@ -39,6 +39,18 @@ You can build tinyvector from the latest tagged release by running `cargo instal
  
 You can also build it from the latest commit by cloning the repo and running `cargo build --release`, and run it with `./target/release/tinyvector`.
 
+### Routes
+
+**List Collections** - GET `/`
+**Create Collection** - POST `/`
+**Edit Collection** - PUT `/`
+**Delete Collection** - DELETE `/`
+**Query Collection** - GET `/:collection_name`
+**Insert Vector** - POST `/:collection_name`
+**Edit Vectors** - PUT `/:collection_name`
+**Delete Vectors** - DELETE `/:collection_name`
+**Get Collection Info** - GET `/:collection_name/info`
+
 ## 💡 Why use tinyvector?
 
 Most vector databases are overkill for simple setups. For example:

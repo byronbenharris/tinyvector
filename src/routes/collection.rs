@@ -17,15 +17,18 @@ pub fn handler() -> ApiRouter {
 	ApiRouter::new().nest(
 		"/collections",
 		ApiRouter::new()
+			.api_route("/", get(list_collections))
 			.api_route("/", post(create_collection))
-			// todo - add list collections route
-			// .api_route("/", get(list_collections))
 			.api_route("/", delete(delete_collection))
+			// todo - add edit collections route once metadata constraints are complete (WIP on byronbenharris/tinyvector)
+			// .api_router("/", put(edit_collection))
 			.api_route("/:collection_name", get(query_collection))
-			.api_route("/:collection_name", post(insert_into_collection)),
-			// todo - add delete from collection route
-			// .api_route("/:collection_name", delete(delete_from_collection))
-			.api_route("/:collection_name/info", get(get_collection_info))
+			.api_route("/:collection_name", post(insert_into_collection))
+			// todo - add delete embeddings route metadata handling is complete (WIP on byronbenharris/tinyvector)
+			// .api_route("/:collection_name", delete(delete_embeddings))
+			// todo - add edit vectors route once metadata handling is complete (WIP on byronbenharris/tinyvector)
+			// .api_route("/:collection_name", put(edit_embeddings))
+			.api_route("/:collection_name/info", get(get_collection_info)),
 	)
 }
 
@@ -52,6 +55,31 @@ async fn create_collection(
 		},
 		Err(_) => Err(HTTPError::new("Couldn't create collection")),
 	}
+}
+
+#[derive(Debug, serde::Serialize, JsonSchema)]
+struct ListCollections {
+	/// Number of collections on the database
+	count: usize,
+	/// Name of connections on the database
+	names: Vec<&String>,
+}
+
+/// List existing collections
+async fn list_collections (
+	Path(collection_name): Path<String>,
+	Extension(db): DbExtension,
+	Json(req): Json<Collection>,
+) -> Json<ListCollections> {
+	tracing::trace!("Getting list of active collections");
+
+	let db = db.read().await;
+	let collections = db.list_collections();
+
+	Json(ListCollections {
+		count: collections.len(),
+		names: collections,
+	})
 }
 
 #[derive(Debug, serde::Deserialize, JsonSchema)]
