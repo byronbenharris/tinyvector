@@ -41,15 +41,15 @@ You can also build it from the latest commit by cloning the repo and running `ca
 
 ### Routes
 
-**List Collections** - GET `/`
-**Create Collection** - POST `/`
-**Edit Collection** - PUT `/`
-**Delete Collection** - DELETE `/`
-**Query Collection** - GET `/:collection_name`
-**Insert Vector** - POST `/:collection_name`
-**Edit Vectors** - PUT `/:collection_name`
-**Delete Vectors** - DELETE `/:collection_name`
-**Get Collection Info** - GET `/:collection_name/info`
+- **List Collections** - GET `/`
+- **Create Collection** - POST `/`
+- **Edit Collection** - PUT `/`
+- **Delete Collection** - DELETE `/`
+- **Query Collection** - GET `/:collection_name`
+- **Insert Vector** - POST `/:collection_name`
+- **Edit Vectors** - PUT `/:collection_name`
+- **Delete Vectors** - DELETE `/:collection_name`
+- **Get Collection Info** - GET `/:collection_name/info`
 
 ## 💡 Why use tinyvector?
 
